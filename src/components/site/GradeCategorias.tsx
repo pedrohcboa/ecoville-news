@@ -1,0 +1,64 @@
+import { aparenciaCategoria } from "@/lib/categorias";
+import type { Categoria } from "@/lib/types";
+import { LinkRastreado } from "./LinkRastreado";
+import { IconeCategoria, IconeSeta } from "@/components/ui/Icones";
+
+/**
+ * Cards de categoria com contagem real de edições publicadas.
+ * Cada clique é registrado como `categoria_card` junto com a categoria.
+ */
+export function GradeCategorias({
+  categorias,
+  contagem,
+}: {
+  categorias: Categoria[];
+  contagem: Record<string, number>;
+}) {
+  return (
+    <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {categorias.map((categoria) => {
+        const total = contagem[categoria.slug] ?? 0;
+        const aparencia = aparenciaCategoria(categoria.slug);
+
+        return (
+          <li key={categoria.slug}>
+            <LinkRastreado
+              href={`/categorias/${categoria.slug}`}
+              alvo="categoria_card"
+              categoria={categoria.slug}
+              className="group flex h-full flex-col rounded-2xl border border-line bg-surface p-6 shadow-card transition-all duration-200 hover:-translate-y-0.5 hover:border-brand-blue/30 hover:shadow-card-hover"
+            >
+              <span
+                className={`inline-flex size-12 items-center justify-center rounded-xl ${aparencia.capa}`}
+              >
+                <IconeCategoria
+                  categoria={categoria.slug}
+                  className={`size-6 ${
+                    categoria.slug === "impulsionar-a-loja"
+                      ? "text-brand-blue"
+                      : "text-white"
+                  }`}
+                />
+              </span>
+
+              <h3 className="mt-5 text-xl font-bold text-ink group-hover:text-brand-blue">
+                {categoria.nome}
+              </h3>
+
+              <p className="mt-2 text-sm leading-relaxed text-ink-muted">
+                {categoria.descricao}
+              </p>
+
+              <span className="mt-6 flex items-center gap-2 text-sm font-semibold text-brand-blue">
+                {total === 0
+                  ? "Nenhuma edição ainda"
+                  : `${total} ${total === 1 ? "edição" : "edições"}`}
+                <IconeSeta className="size-4 transition-transform duration-200 group-hover:translate-x-1" />
+              </span>
+            </LinkRastreado>
+          </li>
+        );
+      })}
+    </ul>
+  );
+}

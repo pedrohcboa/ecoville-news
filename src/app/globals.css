@@ -1,0 +1,278 @@
+@import "tailwindcss";
+
+/* =========================================================================
+   ECOVILLE NEWS — SISTEMA DE DESIGN
+   -------------------------------------------------------------------------
+   Tokens de cor, tipografia e espacamento da marca Ecoville.
+
+   Disciplina de paleta (obrigatoria):
+   - Azul  #0213C1  -> cor dominante / base "escura" da marca.
+   - Amarelo #FFF301 -> acento de alta energia, usado com parcimonia.
+   - Branco #FFFFFF  -> superficies de conteudo.
+   - Neutros (off-white / tinta) sustentam a legibilidade do texto corrido.
+
+   Regras: texto de leitura NUNCA em amarelo; nunca amarelo sobre branco;
+   combinacoes seguras = branco/azul, azul/branco, azul/amarelo.
+   ========================================================================= */
+
+@theme {
+  /* --- Cores de marca --- */
+  --color-brand-blue: #0213c1;
+  --color-brand-blue-deep: #010b78; /* hover / profundidade */
+  --color-brand-blue-soft: #e8eaff; /* fundo tenue azulado */
+  --color-brand-yellow: #fff301;
+  --color-brand-yellow-deep: #e0d500; /* hover de CTA amarelo */
+
+  /* --- Neutros de apoio (sustentam a leitura) --- */
+  --color-surface: #ffffff;
+  --color-canvas: #f7f8fc;
+  --color-ink: #111318;
+  --color-ink-muted: #4a5060;
+  --color-ink-faint: #767d8f;
+  --color-line: #e3e6f0;
+  --color-line-strong: #ccd1e2;
+
+  /* --- Cores por categoria (derivadas da marca) --- */
+  --color-cat-produtos: #0213c1;
+  --color-cat-impulsionar: #fff301;
+  --color-cat-dicas: #111318;
+
+  /* --- Tipografia --- */
+  --font-display: var(--font-archivo), "Archivo", system-ui, sans-serif;
+  --font-sans: var(--font-inter), "Inter", system-ui, sans-serif;
+
+  /* --- Ritmo / acabamento --- */
+  --radius-card: 16px;
+  --radius-pill: 999px;
+  --shadow-card: 0 1px 2px rgb(17 19 24 / 0.04), 0 8px 24px -12px rgb(17 19 24 / 0.16);
+  --shadow-card-hover: 0 2px 4px rgb(2 19 193 / 0.06), 0 18px 40px -16px rgb(2 19 193 / 0.28);
+}
+
+/* O produto e' deliberadamente "light-only": a identidade Ecoville depende do
+   azul saturado sobre superficies claras. Fixamos o esquema para que o
+   navegador nao aplique inversoes automaticas. */
+:root {
+  color-scheme: light;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* Compensa o header fixo ao navegar por ancoras (#catalogo, #sobre...) */
+    scroll-padding-top: 6rem;
+  }
+
+  body {
+    background-color: var(--color-canvas);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  /* Foco sempre visivel e com contraste suficiente (WCAG 2.4.7). */
+  :focus-visible {
+    outline: 3px solid var(--color-brand-blue);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* Sobre fundo azul o anel de foco precisa ser claro para nao sumir. */
+  .on-blue :focus-visible {
+    outline-color: var(--color-brand-yellow);
+  }
+
+  ::selection {
+    background: var(--color-brand-yellow);
+    color: var(--color-brand-blue);
+  }
+}
+
+@layer components {
+  /* ---------- Marcador de palavra-chave do hero e dos titulos ---------- */
+  .marca-texto {
+    background-image: linear-gradient(
+      to top,
+      var(--color-brand-yellow) 0.42em,
+      transparent 0.42em
+    );
+    padding-inline: 0.06em;
+  }
+
+  /* ---------- Corpo da newsletter (tipografia de leitura) ----------
+     Estilizamos o HTML que sai do editor visual sem depender do plugin
+     @tailwindcss/typography, mantendo o bundle enxuto. */
+  .conteudo {
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    color: var(--color-ink);
+  }
+  .conteudo > * + * {
+    margin-top: 1.15em;
+  }
+  .conteudo h2 {
+    font-size: 1.6rem;
+    line-height: 1.25;
+    margin-top: 2.2em;
+    color: var(--color-brand-blue);
+  }
+  .conteudo h3 {
+    font-size: 1.25rem;
+    line-height: 1.3;
+    margin-top: 1.8em;
+  }
+  .conteudo ul,
+  .conteudo ol {
+    padding-left: 1.4em;
+  }
+  .conteudo ul {
+    list-style: disc;
+  }
+  .conteudo ol {
+    list-style: decimal;
+  }
+  .conteudo li + li {
+    margin-top: 0.4em;
+  }
+  .conteudo li::marker {
+    color: var(--color-brand-blue);
+    font-weight: 700;
+  }
+  .conteudo a {
+    color: var(--color-brand-blue);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 2px;
+    text-decoration-color: var(--color-brand-yellow);
+  }
+  .conteudo a:hover {
+    background: var(--color-brand-blue);
+    color: #fff;
+    text-decoration-color: transparent;
+  }
+  .conteudo strong {
+    font-weight: 700;
+  }
+  .conteudo blockquote {
+    border-left: 4px solid var(--color-brand-yellow);
+    background: var(--color-canvas);
+    padding: 0.9em 1.2em;
+    font-size: 1.05em;
+    border-radius: 0 12px 12px 0;
+  }
+  .conteudo blockquote p {
+    margin: 0;
+  }
+  .conteudo img {
+    border-radius: 12px;
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+  .conteudo hr {
+    border: 0;
+    border-top: 2px solid var(--color-line);
+    margin-block: 2.5em;
+  }
+  .conteudo code {
+    background: var(--color-brand-blue-soft);
+    color: var(--color-brand-blue-deep);
+    padding: 0.15em 0.4em;
+    border-radius: 6px;
+    font-size: 0.9em;
+  }
+  /* Tabelas simples precisam rolar no mobile sem quebrar a pagina. */
+  .conteudo table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95em;
+  }
+  .conteudo :is(th, td) {
+    border: 1px solid var(--color-line);
+    padding: 0.6em 0.8em;
+    text-align: left;
+    vertical-align: top;
+  }
+  .conteudo th {
+    background: var(--color-brand-blue);
+    color: #fff;
+    font-weight: 700;
+  }
+  .conteudo tbody tr:nth-child(even) {
+    background: var(--color-canvas);
+  }
+
+  /* Acentos aplicados pelo editor, edicao a edicao (ver barra do editor). */
+  .conteudo mark {
+    background: var(--color-brand-yellow);
+    color: var(--color-ink);
+    padding: 0.05em 0.15em;
+    border-radius: 3px;
+  }
+}
+
+/* Respeita quem pediu menos movimento no sistema operacional. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* =========================================================================
+   EDITOR VISUAL (ProseMirror / Tiptap)
+   A area de escrita usa a classe .conteudo, entao o que o editor ve ja e' o
+   resultado final. Aqui ficam so os ajustes proprios do modo de edicao.
+   ========================================================================= */
+.ProseMirror {
+  outline: none;
+}
+
+/* Texto de apoio quando o documento esta vazio. */
+.ProseMirror p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  color: var(--color-ink-faint);
+  float: left;
+  height: 0;
+  pointer-events: none;
+}
+
+/* Tabelas precisam de largura fixa para o redimensionamento fazer sentido. */
+.ProseMirror table {
+  table-layout: fixed;
+  overflow: hidden;
+}
+.ProseMirror :is(th, td) {
+  position: relative;
+  min-width: 4rem;
+}
+
+/* Celulas selecionadas ganham um veu azul translucido. */
+.ProseMirror .selectedCell::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgb(2 19 193 / 0.12);
+  pointer-events: none;
+}
+
+/* Linha divisoria selecionada e imagem selecionada. */
+.ProseMirror hr.ProseMirror-selectednode,
+.ProseMirror img.ProseMirror-selectednode {
+  outline: 3px solid var(--color-brand-blue);
+  outline-offset: 2px;
+}
