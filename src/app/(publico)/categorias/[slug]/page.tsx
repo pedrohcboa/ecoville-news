@@ -30,8 +30,7 @@ export default async function PaginaCategoria({
   if (!categoria) notFound();
 
   const daCategoria = newsletters.filter((n) => n.categoria === slug);
-  const aparencia = aparenciaCategoria(slug);
-  const iconeClaro = slug === "impulsionar-a-loja";
+  const aparencia = aparenciaCategoria(categoria);
 
   return (
     <>
@@ -41,8 +40,8 @@ export default async function PaginaCategoria({
             className={`inline-flex size-14 items-center justify-center rounded-2xl ${aparencia.capa}`}
           >
             <IconeCategoria
-              categoria={slug}
-              className={`size-7 ${iconeClaro ? "text-brand-blue" : "text-white"}`}
+              icone={categoria.icone}
+              className={`size-7 ${aparencia.sobreCapa}`}
             />
           </span>
 

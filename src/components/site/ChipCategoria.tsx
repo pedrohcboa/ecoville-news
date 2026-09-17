@@ -1,17 +1,18 @@
-import { aparenciaCategoria } from "@/lib/categorias";
+import { aparenciaPorCor } from "@/lib/categorias";
 import { cn } from "@/lib/utils";
 
 /**
- * Tag de categoria. As combinações de cor vêm de `aparenciaCategoria`, que já
- * garante contraste AA (branco sobre azul, azul sobre amarelo, branco sobre
- * tinta) — nunca amarelo sobre branco.
+ * Tag de categoria. Recebe o token de cor da categoria (não o slug) — a
+ * paleta em `lib/categorias.ts` já garante contraste AA em toda entrada
+ * (branco sobre azul, azul sobre amarelo, branco sobre tinta) e nunca
+ * produz amarelo sobre branco.
  */
 export function ChipCategoria({
-  categoria,
+  cor,
   nome,
   className,
 }: {
-  categoria: string;
+  cor: string;
   nome: string;
   className?: string;
 }) {
@@ -19,7 +20,7 @@ export function ChipCategoria({
     <span
       className={cn(
         "inline-flex items-center rounded-full px-3 py-1 text-[0.6875rem] font-bold tracking-[0.08em] uppercase",
-        aparenciaCategoria(categoria).chip,
+        aparenciaPorCor(cor).chip,
         className,
       )}
     >

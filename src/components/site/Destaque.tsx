@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { aparenciaCategoria, nomeCategoria } from "@/lib/categorias";
+import { aparenciaCategoria } from "@/lib/categorias";
 import { formatarData } from "@/lib/utils";
 import type { Categoria, Newsletter } from "@/lib/types";
 import { ChipCategoria } from "./ChipCategoria";
@@ -17,7 +17,8 @@ export function Destaque({
   newsletter: Newsletter;
   categorias: Categoria[];
 }) {
-  const aparencia = aparenciaCategoria(newsletter.categoria);
+  const categoria = categorias.find((c) => c.slug === newsletter.categoria);
+  const aparencia = aparenciaCategoria(categoria);
 
   return (
     <article className="group relative overflow-hidden rounded-3xl border border-line bg-surface shadow-card transition-shadow hover:shadow-card-hover">
@@ -35,12 +36,8 @@ export function Destaque({
           ) : (
             <div className="absolute inset-0 flex items-center justify-center">
               <IconeCategoria
-                categoria={newsletter.categoria}
-                className={`size-24 ${
-                  newsletter.categoria === "impulsionar-a-loja"
-                    ? "text-brand-blue/35"
-                    : "text-white/30"
-                }`}
+                icone={categoria?.icone ?? "estrela"}
+                className={`size-24 ${aparencia.marcaDagua}`}
               />
             </div>
           )}
@@ -52,8 +49,8 @@ export function Destaque({
               Última edição
             </span>
             <ChipCategoria
-              categoria={newsletter.categoria}
-              nome={nomeCategoria(newsletter.categoria, categorias)}
+              cor={categoria?.cor ?? "neutra"}
+              nome={categoria?.nome ?? newsletter.categoria}
             />
           </div>
 

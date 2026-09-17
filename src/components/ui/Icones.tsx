@@ -1,5 +1,4 @@
 import type { SVGProps } from "react";
-import { aparenciaCategoria } from "@/lib/categorias";
 
 /**
  * Ícones desenhados à mão em SVG inline.
@@ -20,7 +19,7 @@ const base = {
   focusable: false,
 };
 
-/** Frasco de produto — trilha Produtos. */
+/** Frasco de produto. */
 export function IconeFrasco(props: Props) {
   return (
     <svg {...base} {...props}>
@@ -31,7 +30,7 @@ export function IconeFrasco(props: Props) {
   );
 }
 
-/** Megafone — trilha Impulsionar a Loja. */
+/** Megafone. */
 export function IconeMegafone(props: Props) {
   return (
     <svg {...base} {...props}>
@@ -42,7 +41,7 @@ export function IconeMegafone(props: Props) {
   );
 }
 
-/** Moeda — trilha Dicas Econômicas. */
+/** Moeda. */
 export function IconeMoeda(props: Props) {
   return (
     <svg {...base} {...props}>
@@ -53,7 +52,42 @@ export function IconeMoeda(props: Props) {
   );
 }
 
-/** Estrela — fallback para categorias novas criadas pelo banco. */
+/** Vitrine de loja. */
+export function IconeLoja(props: Props) {
+  return (
+    <svg {...base} {...props}>
+      <path d="M4 9h16v10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1Z" />
+      <path d="M3.5 9 5 4h14l1.5 5a2.5 2.5 0 0 1-4.25 1.8A2.5 2.5 0 0 1 12 10.5a2.5 2.5 0 0 1-4.25.3A2.5 2.5 0 0 1 3.5 9Z" />
+      <path d="M10 20v-5h4v5" />
+    </svg>
+  );
+}
+
+/** Radar — leitura de mercado. */
+export function IconeRadar(props: Props) {
+  return (
+    <svg {...base} {...props}>
+      <circle cx="12" cy="12" r="9" />
+      <circle cx="12" cy="12" r="5" />
+      <path d="M12 12 20 7" />
+      <circle cx="12" cy="12" r="1.2" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
+/** Pessoas — rede de franqueados. */
+export function IconePessoas(props: Props) {
+  return (
+    <svg {...base} {...props}>
+      <circle cx="9" cy="8" r="3.2" />
+      <path d="M3 20a6 6 0 0 1 12 0" />
+      <path d="M16.5 5.3a3.2 3.2 0 0 1 0 5.9" />
+      <path d="M17.5 14.4A6 6 0 0 1 21 20" />
+    </svg>
+  );
+}
+
+/** Estrela — fallback de categoria sem ícone escolhido. */
 export function IconeEstrela(props: Props) {
   return (
     <svg {...base} {...props}>
@@ -114,18 +148,27 @@ export function IconeFechar(props: Props) {
   );
 }
 
-/** Escolhe o ícone certo a partir do slug da categoria. */
+/**
+ * Desenha o ícone pelo nome guardado em `categorias.icone`.
+ * Nome desconhecido (ou categoria sem escolha) cai na estrela.
+ */
 export function IconeCategoria({
-  categoria,
+  icone,
   ...props
-}: Props & { categoria: string }) {
-  switch (aparenciaCategoria(categoria).icone) {
+}: Props & { icone: string }) {
+  switch (icone) {
     case "frasco":
       return <IconeFrasco {...props} />;
+    case "loja":
+      return <IconeLoja {...props} />;
     case "megafone":
       return <IconeMegafone {...props} />;
     case "moeda":
       return <IconeMoeda {...props} />;
+    case "radar":
+      return <IconeRadar {...props} />;
+    case "pessoas":
+      return <IconePessoas {...props} />;
     default:
       return <IconeEstrela {...props} />;
   }

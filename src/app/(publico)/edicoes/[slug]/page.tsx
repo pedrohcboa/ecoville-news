@@ -36,7 +36,8 @@ export default async function PaginaNewsletter({
   if (!newsletter) notFound();
 
   const { anterior, proxima } = vizinhas(newsletters, slug);
-  const aparencia = aparenciaCategoria(newsletter.categoria);
+  const categoria = categorias.find((c) => c.slug === newsletter.categoria);
+  const aparencia = aparenciaCategoria(categoria);
   // O corpo vem do editor visual; higienizamos antes de injetar no HTML.
   const corpo = higienizarHtml(newsletter.corpo);
 
@@ -71,7 +72,7 @@ export default async function PaginaNewsletter({
 
           <div className="mt-6">
             <ChipCategoria
-              categoria={newsletter.categoria}
+              cor={categoria?.cor ?? "neutra"}
               nome={nomeCategoria(newsletter.categoria, categorias)}
             />
           </div>

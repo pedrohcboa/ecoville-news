@@ -88,7 +88,7 @@ export async function listarCategorias(): Promise<Categoria[]> {
   const supabase = criarClientePublico();
   const { data, error } = await supabase
     .from("categorias")
-    .select("slug, nome, descricao, cor, ordem")
+    .select("slug, nome, descricao, cor, icone, ordem")
     .order("ordem", { ascending: true });
 
   if (error || !data?.length) return CATEGORIAS_PADRAO;

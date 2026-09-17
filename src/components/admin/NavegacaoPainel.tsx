@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
 const ABAS = [
   { rotulo: "Edições", href: "/admin", exato: true },
   { rotulo: "Nova edição", href: "/admin/nova", exato: false },
+  { rotulo: "Categorias", href: "/admin/categorias", exato: false },
   { rotulo: "Métricas", href: "/admin/metricas", exato: false },
 ] as const;
 

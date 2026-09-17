@@ -32,8 +32,10 @@ export interface Categoria {
   slug: string;
   nome: string;
   descricao: string;
-  /** Token CSS da cor da categoria (ver globals.css). */
+  /** Token de paleta (ver `PALETA` em `lib/categorias.ts`). */
   cor: string;
+  /** Nome do icone SVG (ver `ICONES` em `lib/categorias.ts`). */
+  icone: string;
   ordem: number;
 }
 

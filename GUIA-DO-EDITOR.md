@@ -50,8 +50,8 @@ texto. A barra de ferramentas está explicada no item 3.
 
 Na coluna da direita:
 
-**Categoria** — escolha a trilha: *Produtos*, *Impulsionar a Loja* ou
-*Dicas Econômicas*.
+**Categoria** — escolha a trilha em que a edição entra. A lista vem da aba
+**Categorias**, onde você mesma cria e ajusta as trilhas (ver item 6).
 
 **Data de publicação** — já vem com a data de hoje. Mude se quiser datar a
 edição de outro dia (as edições aparecem no site da mais nova para a mais
@@ -156,7 +156,47 @@ Em cada linha:
 
 ---
 
-## 6. Ler as métricas
+## 6. Criar e organizar as categorias
+
+As **categorias** (ou trilhas) são as gavetas que organizam as edições. Elas
+aparecem no menu do site, na home e no arquivo. Você cria e ajusta sozinha, na
+aba **Categorias** — não precisa pedir para ninguém.
+
+### Criar uma
+
+Clique em **+ Nova categoria** e preencha:
+
+**Nome** — como a trilha aparece no site. Ex.: *Radar do Setor*.
+
+**Descrição** — uma frase explicando o que entra ali. Aparece no cartão da
+home e no topo da página da trilha. Ex.: *Movimentos do mercado, concorrência
+e tendências*.
+
+**Cor** e **Ícone** — a aparência da trilha. São listas prontas, todas dentro
+das regras visuais da Ecoville, então não tem como escolher uma combinação
+feia ou ilegível. O quadro **Prévia**, ao lado, mostra na hora como vai ficar.
+
+Clique em **Criar categoria** e pronto — ela já está no ar.
+
+### Ajustar as que já existem
+
+- **Editar** — muda nome, descrição, cor e ícone a qualquer momento;
+- **↑ ↓** — mudam a ordem em que as trilhas aparecem no site;
+- **Excluir** — só funciona em trilha **vazia**. Se ela tiver edições, o painel
+  avisa: mova as edições para outra trilha antes (abra cada uma e troque o
+  campo *Categoria*).
+
+> **Sobre o endereço:** ao criar, o sistema monta o endereço da trilha a
+> partir do nome (*Radar do Setor* vira `/categorias/radar-do-setor`). Esse
+> endereço **não muda** se você renomear depois — assim, links que já
+> circularam entre os franqueados continuam funcionando.
+
+### Quantas trilhas ter?
+
+Poucas e claras funcionam melhor que muitas parecidas. Se duas trilhas vivem
+recebendo o mesmo tipo de conteúdo, provavelmente é uma só.
+
+## 7. Ler as métricas
 
 Na aba **Métricas** você escolhe o período (7, 30 ou 90 dias) e vê:
 
@@ -187,7 +227,7 @@ muita busca por um assunto que você ainda não publicou, achou uma pauta.
 
 ---
 
-## 7. Dúvidas rápidas
+## 8. Dúvidas rápidas
 
 **Publiquei com erro de digitação. E agora?**
 Abra a edição, corrija e clique em **Publicar** de novo. A correção vale na
@@ -201,8 +241,8 @@ Duas edições não podem ter o mesmo endereço. Mude o campo *Endereço da pág
 (por exemplo, acrescente o mês no fim).
 
 **Posso criar uma categoria nova?**
-Sim, mas isso é feito no banco de dados — peça para quem cuida do site. O
-sistema já está preparado para receber trilhas novas.
+Sim, você mesma. Aba **Categorias** > *Nova categoria*. Ver o item 6 deste
+guia.
 
 **Posso divulgar o link fora da rede?**
 Não. O conteúdo é interno, feito para franqueados. O site não aparece no Google

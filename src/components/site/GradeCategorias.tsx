@@ -18,7 +18,7 @@ export function GradeCategorias({
     <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
       {categorias.map((categoria) => {
         const total = contagem[categoria.slug] ?? 0;
-        const aparencia = aparenciaCategoria(categoria.slug);
+        const aparencia = aparenciaCategoria(categoria);
 
         return (
           <li key={categoria.slug}>
@@ -32,12 +32,8 @@ export function GradeCategorias({
                 className={`inline-flex size-12 items-center justify-center rounded-xl ${aparencia.capa}`}
               >
                 <IconeCategoria
-                  categoria={categoria.slug}
-                  className={`size-6 ${
-                    categoria.slug === "impulsionar-a-loja"
-                      ? "text-brand-blue"
-                      : "text-white"
-                  }`}
+                  icone={categoria.icone}
+                  className={`size-6 ${aparencia.sobreCapa}`}
                 />
               </span>
 

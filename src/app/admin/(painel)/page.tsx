@@ -22,7 +22,7 @@ export default async function PaginaEdicoes() {
       .order("data_publicacao", { ascending: false }),
     supabase
       .from("categorias")
-      .select("slug, nome, descricao, cor, ordem")
+      .select("slug, nome, descricao, cor, icone, ordem")
       .order("ordem"),
   ]);
 

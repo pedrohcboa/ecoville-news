@@ -63,13 +63,15 @@ arquivos de `supabase/migrations/`:
 
 1. `0001_schema_completo.sql` — tabelas, RLS, Storage, funções de métricas e as
    três categorias iniciais;
-2. `0002_dados_de_exemplo.sql` — as três edições-modelo (opcional).
+2. `0002_dados_de_exemplo.sql` — as três edições-modelo (opcional);
+3. `0003_categorias_gerenciaveis.sql` — coluna `icone`, tokens de paleta em
+   `cor` e as trilhas pedidas pelo cliente.
 
 ### Tabelas
 
 | Tabela | Papel |
 |---|---|
-| `categorias` | Trilhas editoriais. Criar uma linha aqui já cria uma trilha nova no site — sem deploy. |
+| `categorias` | Trilhas editoriais, gerenciadas em `/admin/categorias`. Cor e ícone saem das listas fechadas de `src/lib/categorias.ts` (CHECK no banco garante). |
 | `newsletters` | As edições. `status` = `rascunho` \| `publicado`. |
 | `events` | Eventos anônimos de uso (pageview, abertura, clique, busca, filtro). |
 | `editores` | Allowlist de quem pode publicar. |
@@ -152,20 +154,20 @@ src/
     (publico)/            área de leitura — home, arquivo, edição, trilha, sobre
     admin/
       login|recuperar|nova-senha/   fora da área protegida
-      (painel)/           lista, nova, editar/[id], métricas — exige editor
+      (painel)/           lista, nova, editar/[id], categorias, métricas — exige editor
     api/eventos/          coleta de eventos
     robots.ts             noindex global
   components/
     brand/Wordmark.tsx    ← ÚNICO lugar a trocar quando a logo chegar
     site/                 header, footer, hero, cards, catálogo, rastreadores
-    admin/                formulários, editor Tiptap, gráficos
+    admin/                formulários, editor Tiptap, gráficos, gestão de trilhas
     ui/Icones.tsx         ícones SVG
   lib/
     data.ts               leitura pública (com fallback para os exemplos)
     analytics.ts          disparo de eventos
     sanitize.ts           allowlist de HTML do editor
     upload.ts             otimização + envio de imagens
-    categorias.ts         trilhas + aparência (cor/ícone)
+    categorias.ts         paleta e ícones + fallback de demonstração
     supabase/             clientes navegador / servidor / serviço
   proxy.ts                sessão e proteção do /admin
 supabase/migrations/      schema versionado
@@ -192,6 +194,26 @@ traço — lá usamos as cores validadas documentadas em
 
 Tipografia: **Archivo** (títulos e wordmark) e **Inter** (corpo), via
 `next/font`.
+
+### Aparência das categorias
+
+Cada categoria guarda um token de paleta em `categorias.cor` e um nome de
+ícone em `categorias.icone`. Ambos são listas fechadas — `PALETA` e `ICONES`
+em `src/lib/categorias.ts`, espelhadas por CHECK no banco — porque o Tailwind
+só gera o CSS das classes que enxerga escritas no código-fonte. A lista fechada
+também garante que nenhuma escolha do editor produza amarelo sobre branco ou
+texto de leitura em amarelo.
+
+Toda entrada da paleta define `chip`, `capa`, `barra`, `sobreCapa` (ícone
+sólido sobre a capa) e `marcaDagua` (o mesmo ícone atenuado). Esses dois
+últimos existem para substituir o `categoria === "impulsionar-a-loja"` que
+antes estava espalhado por cinco componentes decidindo se o ícone era branco ou
+azul.
+
+**Para acrescentar uma cor ou um ícone:** adicione a entrada em
+`src/lib/categorias.ts`, desenhe o SVG em `src/components/ui/Icones.tsx` (se
+for ícone) e estenda o CHECK correspondente no banco. Só isso exige deploy —
+criar, renomear, recolorir e reordenar categorias, não.
 
 ### Trocar o wordmark pela logo real
 

@@ -9,7 +9,7 @@ import { CampoTags } from "./CampoTags";
 import { Alerta, Campo, Selo, classesBotao, classesEntrada } from "./ui";
 import { criarClienteNavegador } from "@/lib/supabase/client";
 import { enviarImagem } from "@/lib/upload";
-import { aparenciaCategoria, nomeCategoria } from "@/lib/categorias";
+import { aparenciaCategoria, aparenciaPorCor, nomeCategoria } from "@/lib/categorias";
 import { calcularTempoLeitura, formatarData, gerarSlug, hojeISO } from "@/lib/utils";
 import type { Categoria, Newsletter, StatusNewsletter } from "@/lib/types";
 
@@ -57,6 +57,10 @@ export function FormularioEdicao({
   const inputCapa = useRef<HTMLInputElement>(null);
 
   const tempoLeitura = useMemo(() => calcularTempoLeitura(corpo), [corpo]);
+
+  /** Categoria selecionada no momento — traz cor e ícone para as prévias. */
+  const categoriaEscolhida = categorias.find((c) => c.slug === categoria);
+  const aparenciaEscolhida = aparenciaCategoria(categoriaEscolhida);
 
   /** Enquanto o editor não mexer no endereço, ele acompanha o título. */
   function aoMudarTitulo(valor: string) {
@@ -338,16 +342,10 @@ export function FormularioEdicao({
                   />
                 </div>
               ) : (
-                <div
-                  className={`flex aspect-[16/9] items-center justify-center ${aparenciaCategoria(categoria).capa}`}
+<div
+                  className={`flex aspect-[16/9] items-center justify-center ${aparenciaEscolhida.capa}`}
                 >
-                  <span
-                    className={`text-xs font-bold ${
-                      categoria === "impulsionar-a-loja"
-                        ? "text-brand-blue"
-                        : "text-white/80"
-                    }`}
-                  >
+                  <span className={`text-xs font-bold ${aparenciaEscolhida.sobreCapa}`}>
                     Cor da categoria
                   </span>
                 </div>
@@ -428,7 +426,7 @@ export function FormularioEdicao({
           data={dataPublicacao}
           tempoLeitura={tempoLeitura}
           categoriaNome={nomeCategoria(categoria, categorias)}
-          categoriaSlug={categoria}
+          categoriaCor={categoriaEscolhida?.cor ?? "neutra"}
           tags={tags}
         />
       )}
@@ -449,7 +447,7 @@ function Previa({
   data,
   tempoLeitura,
   categoriaNome,
-  categoriaSlug,
+  categoriaCor,
   tags,
 }: {
   aoFechar: () => void;
@@ -460,7 +458,7 @@ function Previa({
   data: string;
   tempoLeitura: number;
   categoriaNome: string;
-  categoriaSlug: string;
+  categoriaCor: string;
   tags: string[];
 }) {
   return (
@@ -486,7 +484,7 @@ function Previa({
 
         <div className="px-6 py-8 sm:px-10 sm:py-10">
           <span
-            className={`inline-flex items-center rounded-full px-3 py-1 text-[0.6875rem] font-bold tracking-[0.08em] uppercase ${aparenciaCategoria(categoriaSlug).chip}`}
+            className={`inline-flex items-center rounded-full px-3 py-1 text-[0.6875rem] font-bold tracking-[0.08em] uppercase ${aparenciaPorCor(categoriaCor).chip}`}
           >
             {categoriaNome}
           </span>

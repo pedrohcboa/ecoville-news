@@ -61,7 +61,7 @@ export default async function PaginaSobre() {
           </h2>
           <ul className="mt-5 space-y-4">
             {categorias.map((c) => {
-              const aparencia = aparenciaCategoria(c.slug);
+              const aparencia = aparenciaCategoria(c);
               return (
                 <li
                   key={c.slug}
@@ -71,12 +71,8 @@ export default async function PaginaSobre() {
                     className={`inline-flex size-11 shrink-0 items-center justify-center rounded-xl ${aparencia.capa}`}
                   >
                     <IconeCategoria
-                      categoria={c.slug}
-                      className={`size-5 ${
-                        c.slug === "impulsionar-a-loja"
-                          ? "text-brand-blue"
-                          : "text-white"
-                      }`}
+                      icone={c.icone}
+                      className={`size-5 ${aparencia.sobreCapa}`}
                     />
                   </span>
                   <div>

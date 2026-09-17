@@ -11,7 +11,7 @@ export default async function PaginaNovaEdicao() {
   const supabase = await criarClienteServidor();
   const { data } = await supabase
     .from("categorias")
-    .select("slug, nome, descricao, cor, ordem")
+    .select("slug, nome, descricao, cor, icone, ordem")
     .order("ordem");
 
   const categorias = (data as Categoria[] | null) ?? [];

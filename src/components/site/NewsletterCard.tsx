@@ -1,8 +1,7 @@
 import Image from "next/image";
-import { aparenciaCategoria } from "@/lib/categorias";
 import { formatarData } from "@/lib/utils";
 import type { Categoria, Newsletter } from "@/lib/types";
-import { nomeCategoria } from "@/lib/categorias";
+import { aparenciaCategoria } from "@/lib/categorias";
 import { ChipCategoria } from "./ChipCategoria";
 import { LinkRastreado } from "./LinkRastreado";
 import { IconeCategoria, IconeRelogio, IconeSeta } from "@/components/ui/Icones";
@@ -23,7 +22,8 @@ export function NewsletterCard({
   categorias: Categoria[];
   prioridadeImagem?: boolean;
 }) {
-  const aparencia = aparenciaCategoria(newsletter.categoria);
+  const categoria = categorias.find((c) => c.slug === newsletter.categoria);
+  const aparencia = aparenciaCategoria(categoria);
 
   return (
     <article className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-surface shadow-card transition-all duration-200 hover:-translate-y-0.5 hover:border-brand-blue/30 hover:shadow-card-hover focus-within:-translate-y-0.5">
@@ -40,20 +40,16 @@ export function NewsletterCard({
           />
         ) : (
           <IconeCategoria
-            categoria={newsletter.categoria}
-            className={`absolute right-4 bottom-4 size-16 ${
-              newsletter.categoria === "impulsionar-a-loja"
-                ? "text-brand-blue/35"
-                : "text-white/30"
-            }`}
+            icone={categoria?.icone ?? "estrela"}
+            className={`absolute right-4 bottom-4 size-16 ${aparencia.marcaDagua}`}
           />
         )}
       </div>
 
       <div className="flex flex-1 flex-col p-5">
         <ChipCategoria
-          categoria={newsletter.categoria}
-          nome={nomeCategoria(newsletter.categoria, categorias)}
+          cor={categoria?.cor ?? "neutra"}
+          nome={categoria?.nome ?? newsletter.categoria}
           className="self-start"
         />
 
